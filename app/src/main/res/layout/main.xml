@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:gravity="center"
+	android:layout_margin="2dp">
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:id="@+id/mainLinearLayout1">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="行数:"
+			android:textSize="13dp"
+			android:gravity="center"
+			android:layout_weight="1.0"/>
+
+		<Spinner
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/row"
+			android:layout_weight="1.0"
+			android:padding="2dp"
+			android:gravity="center"/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="列数:"
+			android:textSize="13sp"
+			android:layout_weight="1.0"
+			android:gravity="center"/>
+
+		<Spinner
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/column"
+			android:layout_weight="1.0"
+			android:padding="2dp"
+			android:gravity="center"/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="难度:"
+			android:textSize="13sp"
+			android:gravity="center"
+			android:layout_weight="1.0"/>
+
+		<Spinner
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/radom"
+			android:layout_weight="1.0"
+			android:padding="2dp"
+			android:gravity="center"/>
+
+	</LinearLayout>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_above="@+id/mainLinearLayout"
+		android:layout_below="@+id/mainLinearLayout1"
+		android:id="@+id/mainScrollView">
+
+		<HorizontalScrollView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+
+			<com.mao.mine.MapView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#11D211ED"
+				android:id="@+id/MapView"/>
+
+		</HorizontalScrollView>
+
+	</ScrollView>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:id="@+id/mainLinearLayout"
+		android:layout_marginBottom="3dp">
+
+		<ToggleButton
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:textOn="插旗"
+			android:textOff="翻开"
+			android:onClick="change"
+			android:textColor="#FFF7205A"
+			android:layout_weight="1.0"
+			android:layout_marginBottom="5dp"/>
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:text="刷新"
+			android:layout_weight="1.0"
+			android:onClick="update"
+			android:layout_marginBottom="5dp"/>
+
+	</LinearLayout>
+
+</RelativeLayout>
+
