@@ -15,7 +15,6 @@ public class MapView extends ViewGroup
 	private int column;
 	private int row;
 	private boolean gameover;
-	//private int childCount;
 	
 	public MapView(Context context)
 	{
@@ -26,16 +25,6 @@ public class MapView extends ViewGroup
 	{
 		super(context, attr);
 		init();
-	}
-
-	public void setGameover(boolean gameover)
-	{
-		this.gameover = gameover;
-	}
-
-	public boolean isGameover()
-	{
-		return gameover;
 	}
 
 	@Override
@@ -89,12 +78,11 @@ public class MapView extends ViewGroup
 		row = MainActivity.m;
 		margin = 6;
 		blocks = new BlockView[row][column];
-		setGameover(false);
+		gameover = false;
 		
 		getMines();
 		setNumber();
 		addListener();
-		//childCount = getChildCount();
 	}
 	
 	//获取雷以及数量
@@ -109,7 +97,7 @@ public class MapView extends ViewGroup
 				blocks[i][j].setNum(0);
 				blocks[i][j].setI(i);
 				blocks[i][j].setJ(j);
-				if(MainActivity.t+2 > Math.random()*30)
+				if( Math.random()*24 < MainActivity.t*2 )
 				{
 					blocks[i][j].setNum(-1);
 					landmines++;
@@ -168,7 +156,7 @@ public class MapView extends ViewGroup
 							int x = bv.getNum();
 
 							//是否结束
-							if (!isGameover())
+							if (!gameover)
 							{
 								//翻开方块
 								if (!MainActivity.flag)
@@ -178,13 +166,8 @@ public class MapView extends ViewGroup
 									{
 										bv.setBackgroundResource(R.drawable.lei);
 										//点击到雷结束
-										setGameover(true);
-										//对话框
-										Intent intent = new Intent();
-										intent.putExtra("result", "失败");
-										intent.setClass(MapView.this.getContext(), DialogActivity.class);
-										intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-										MapView.this.getContext().startActivity(intent);
+										gameover = true;
+										testResult("失败");
 									}else{
 										open(bv);
 									}
@@ -196,7 +179,7 @@ public class MapView extends ViewGroup
 										bv.setBackgroundResource(R.drawable.flag);
 										landmines--;
 										bv.setFlag(true);
-										testResult();
+										testResult("胜利");
 									}
 									//取消旗子
 									else
@@ -225,7 +208,7 @@ public class MapView extends ViewGroup
 		nos--;
 		if(bv.isFlag())landmines++;
 		
-		testResult();
+		testResult("胜利");
 
 		if (bv.getNum() == 0)
 		{
@@ -256,17 +239,16 @@ public class MapView extends ViewGroup
 		}
 	}
 
-	public void testResult(){
-
-		if (nos==0&&landmines==0)
+	public void testResult(String result){
+		
+		if ((nos==0&&landmines==0)||result.equals("失败"))
 		{
-			//恭喜过关
 			Intent intent = new Intent();
-			intent.putExtra("result", "成功");
+			intent.putExtra("result", result);
 			intent.setClass(MapView.this.getContext(), DialogActivity.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			this.getContext().startActivity(intent);
-			if(MainActivity.t<10)MainActivity.t++;
+			MapView.this.getContext().startActivity(intent);
+			//if(MainActivity.t<10)MainActivity.t++;
 		}
 	}
 	

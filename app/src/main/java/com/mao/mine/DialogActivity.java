@@ -5,6 +5,7 @@ import java.util.*;
 import android.widget.*;
 import android.content.*;
 import android.graphics.*;
+import android.view.*;
 
 public class DialogActivity extends AppCompatActivity
 {
@@ -16,9 +17,12 @@ public class DialogActivity extends AppCompatActivity
 		
 		TextView tv = (TextView)findViewById(R.id.dialog);
 		String result = getIntent().getStringExtra("result");
+		
 		tv.setText(result);
-		if(result.equals("失败"))tv.setTextColor(Color.parseColor("#FFFF0000"));
-		else tv.setTextColor(Color.parseColor("#FF00FF00"));
+		if(result.equals("失败"))
+			tv.setTextColor(Color.parseColor("#FFFF0000"));
+		else 
+			tv.setTextColor(Color.parseColor("#FF000FF0"));
     }
 
 	@Override

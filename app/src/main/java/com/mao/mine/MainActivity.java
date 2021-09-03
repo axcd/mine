@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity
 	private Spinner row;
 	private Spinner radom;
 	
-	
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,51 +35,31 @@ public class MainActivity extends AppCompatActivity
 		row = (Spinner)findViewById(R.id.row);
 		radom = (Spinner)findViewById(R.id.radom);
 		
-		setSpinner(column,12,40);
-		setSpinner(row,22,50);
-		setSpinner(radom,1,10);
-		
-		column.setOnItemSelectedListener(new OnItemSelectedListener()
-		{
-				@Override
-				public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) 
-				{
-					n = Integer.parseInt(column.getSelectedItem().toString());
-				}
-				
-				public void onNothingSelected(AdapterView<?> arg){
-					;
-				}
-			});
-			
-		row.setOnItemSelectedListener(new OnItemSelectedListener()
-			{
-				@Override
-				public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) 
-				{
-					m = Integer.parseInt(row.getSelectedItem().toString());
-				}
-
-				public void onNothingSelected(AdapterView<?> arg){
-					;
-				}
-			});	
-
-		radom.setOnItemSelectedListener(new OnItemSelectedListener()
-			{
-				@Override
-				public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) 
-				{
-					t = Integer.parseInt(radom.getSelectedItem().toString());
-				}
-
-				public void onNothingSelected(AdapterView<?> arg){
-					;
-				}
-			});
+		setSpinner(column,12,40,"n");
+		setSpinner(row,22,50, "m");
+		setSpinner(radom,1,6, "t");
     }
+	
+	public void set(final Spinner spinner, final String type)
+	{
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener()
+			{
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) 
+				{
+					int tmp = Integer.parseInt(spinner.getSelectedItem().toString());
+					if(type.equals("m")) m = tmp;
+					else if(type.equals("n")) n = tmp;
+					else if(type.equals("t")) t = tmp;
+				}
 
-	public void setSpinner(Spinner spinner, int start, int end)
+				public void onNothingSelected(AdapterView<?> arg){
+					;
+				}
+			});
+	}
+
+	public void setSpinner(Spinner spinner, int start, int end, String key)
 	{
 		ArrayList<String> al = new ArrayList<String>();
 		for(int i=start;i<=end;i++)
@@ -102,16 +81,12 @@ public class MainActivity extends AppCompatActivity
 		}
 		
 		spinner.setAdapter(aa);
+		set(spinner,key);
 	}
 	
 	public void change(View view)
 	{
-		if(flag)
-		{
-			flag =  false;
-		}else{
-			flag = true;
-		}
+		flag = !flag;
 	}
 	
 	public void update(View view)
