@@ -13,7 +13,7 @@ import android.widget.AdapterView.*;
 
 public class MainActivity extends AppCompatActivity
 {
-	public static boolean flag = false;
+	public static boolean flag;
 	public static MapView mv;
 	
 	public static int m = 22;
